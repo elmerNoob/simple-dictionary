@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+</head>
+<body>
+    <div>
+        <form action="/" method="post">
+            <input type="text" name="word" placeholder="Search">
+            <button type="submit" name="submit" value="submit">Search</button>
+            
+        </form>
+    </div>
+
+    <div>
+ 
+        <% function printValues(obj) {%>
+            <%for(var k in obj) {%>
+                <%if(obj[k] instanceof Object) {%>
+                    <%printValues(obj[k]);%>
+                    <%} else {%>
+                    <p><%=(k+ ' : '+ obj[k]);%></p>
+                    <%}%>
+                <%}%>
+            <%}%>
+
+        <%printValues(dict);%>
+        
+    </div>
+    <!-- <script>
+        function printValues(obj) {
+            for(var k in obj) {
+                if(obj[k] instanceof Object) {
+                    printValues(obj[k]);
+                    } else {
+                    document.write(k+ ' : '+ obj[k]);
+                    }
+                }
+            }
+
+    </script> -->
+
+
+    
+    
+</body>
+</html>
