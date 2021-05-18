@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
+const randomWords = require('random-words')
 
 const app = express();
 
@@ -22,9 +23,11 @@ const port = process.env.PORT || 3000;
 app.all('/',function(req, res, next){
     let dictAPI = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/';
     let word = req.body.word;
+    if(word == null){
+        word = randomWords();
+    }
     let url = dictAPI + word;
     // let wordJSON
-
     request(url, function(req, response){
         let wordJSON = JSON.parse(response.body);
         // JSONvar = wordJSON;
