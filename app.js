@@ -5,13 +5,11 @@ const randomWords = require('random-words')
 
 const app = express();
 
-
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.set('view engine', 'ejs');
 const port = process.env.PORT || 3000;
-
-
-
 // app.get('/', function(req, res){
 //     // window.location.reload(true);
 
@@ -40,4 +38,4 @@ app.all('/',function(req, res, next){
 });
 
 
-app.listen(port, () => console.log(`Example app listening on port port!`));
+app.listen(port, () => console.log(`App listening on port ${port}!`));
