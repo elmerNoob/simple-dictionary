@@ -1,35 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <meta http-equiv="refresh" content="5"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dictionary</title>
 </head>
-<body>
-    <div>
-        <form action="/" method="post">
-            <input type="text" name="word" placeholder="Search">
-            <button type="submit" name="submit" value="submit">Search</button>
-            
-        </form>
+
+<body style="font-family: 'Montserrat', sans-serif;">
+    <div class="text-center py-lg-5">
+        <h1>Dictionary</h1>
+    </div>
+    <div class="container-fluid  text-center p-5"></div>
+    <form action="/" method="post">
+    <div class="input-group justify-content-center">
+        <div class="form-outline col-8 m-0 p-0">
+            <input class="form-control" id="form1" type="search" name="word" placeholder="Find Your Meaning">
+        </div>
+        <button type="submit" name="submit" value="submit" class="btn btn-dark "><i class="fas fa-search"></i></button>
     </div>
 
-    <div>
- 
-        <% function printValues(obj) {%>
+    </form>
+    </div>
+
+    <div class="container pb-5 mb-5">
+
+        <%function printValues(obj){%>
             <%for(var k in obj) {%>
                 <%if(obj[k] instanceof Object) {%>
+                    <% if(k == 'synonyms'){ %> 
+                    <p class="text-capitalize pt-2 pl-3 m-0 font-weight-bold"><%= k+': ' %> </p>
+                    <% }  %> 
                     <%printValues(obj[k]);%>
-                    <%} else {%>
-                    <p><%=(k+ ' : '+ obj[k]);%></p>
-                    <%}%>
+                <%} else {%>
+                    <% if (k == 'audio') { %>
+                        <!-- <audio controls>
+                            <source src="horse.ogg" type="audio/ogg">
+                            <source src="horse.mp3" type="audio/mpeg">
+                          Your browser does not support the audio element.
+                          </audio> -->
+                        <% continue; %>
+
+                    <% }else if(k == 'word'){ %>
+                        <h1 class="text-capitalize pt-5"><%= obj[k] %></h1>
+                    <% }else if(k == 'text'){ %>
+                        <span class="border-right border-left border-dark px-2 "><%= obj[k] %></span>
+                    <% }else if(k == 'partOfSpeech'){ %>
+                        <span class="text-capitalize font-weight-bold font-italic pl-2"><%= obj[k]+'.' %></span>
+                    <% }else if(k == 'definition'){ %>
+                        <h5 class="text-capitalize pt-2 pl-3"><%= k %></h5>
+                        <p class="pl-5 m-0"><%=obj[k]%></p>
+                    <%}else if(k == 'example'){%>
+                        <p class="pl-5 m-0"><span class="text-capitalize"> <%= k %> </span> <%= ': '+ obj[k]%></p>
+                    <%}else if(k == 'origin'){%>
+                        
+                        <p class="pl-5 m-0"><span class="text-capitalize"> <%= k %> </span> <%= ': '+ obj[k]%></p>
+                    <%}else if(k == 'title' || k == 'message' ||k == 'resolution'){%>
+                        <!-- <div class="container px-5"> -->
+                            <p class="m-0"><%= obj[k];%></p>
+                        <!-- </div> -->
+                    <%}else if(typeof(parseInt(k)) == 'number' ){ %>
+                        <p class="pl-5 m-0"><%=(parseInt(k)+1) +'. '+ obj[k]%></p>
+                    <%}else if(k == 'title' || k == 'message' ||k == 'resolution'){%>
+                        <!-- <div class="container px-5"> -->
+                            <p class="m-0"><%= obj[k];%></p>
+                        <!-- </div> -->
+                    <%}%>    
                 <%}%>
             <%}%>
+        <%}%>
 
         <%printValues(dict);%>
-        
+
     </div>
     <!-- <script>
         function printValues(obj) {
@@ -45,7 +117,9 @@
     </script> -->
 
 
-    
-    
+
+
 </body>
+<footer><p class="text-muted text-center">All rights reserve | 2021</p></footer>
+
 </html>
